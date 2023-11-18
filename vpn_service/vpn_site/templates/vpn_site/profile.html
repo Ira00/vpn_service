@@ -1,0 +1,47 @@
+{% extends "vpn_site/layout.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col">
+            <h2 class="mt-5">Профіль користувача</h2>
+
+            <p><strong>Ім'я:</strong> {{ user.first_name }}</p>
+            <p><strong>Прізвище:</strong> {{ user.last_name }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+
+            <a class="btn btn-secondary" href="{% url 'edit_profile' request.user.username %}">Редагувати дані</a>
+
+        </div>
+        <div class="col">
+            <h3 class="mt-5">Створити сайт</h3>
+            <form method="post" action="{% url 'create_site' %}">
+                {% csrf_token %}
+                <div class="form-outline mb-3">
+                    <input class="form-control" type="text" id="site-name" name="name"  required>
+                    <label class="form-label" for="site-name">Назва сайту</label>
+                </div>
+                <div class="form-outline mb-3">
+                    <input class="form-control" type="url" id="site-url" name="url"  required>
+                    <label class="form-label" for="site-url">URL сайту</label>
+                </div>
+                <input class="btn btn-secondary mb-3" type="submit" value="Створити сайт">
+            </form>
+        </div>
+    </div>
+
+    <h2 class="mt-5">Створені сайти</h2>
+    <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+      Статистика
+    </button>
+    {% for site in sites %}
+        <div class="d-flex flex-row">
+            <div class="p-2"><strong>{{ site.name }}</strong></div>
+            <a class="p-2" href="{% url 'proxy_route' user_site_name=site.name routes_on_original_site=site.url %}">{{ site.url }}</a>
+
+        </div>
+    {% endfor %}
+
+
+    <!-- Modal -->
+    {% include 'vpn_site/statistics.html' %}
+{% endblock %}

@@ -1,0 +1,35 @@
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Статистика</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Назва сайту</th>
+                        <th>Кількість переглядів</th>
+                        <th>Відправлено даних</th>
+                        <th>Отримано даних</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for stat in statistics %}
+                        <tr>
+                            <td>{{ stat.site.name }}</td>
+                            <td>{{ stat.page_views }}</td>
+                            <td>{{ stat.data_sent }} KB</td>
+                            <td>{{ stat.data_received }} KB</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>

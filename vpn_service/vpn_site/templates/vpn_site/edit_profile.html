@@ -1,0 +1,28 @@
+{% extends "vpn_site/layout.html" %}
+
+{% block content %}
+    <h2 class="mt-5">Редагування профілю</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-outline col-lg-6 mb-3">
+            <input class="form-control" type="text" id="username" name="first_name" value="{{ user.first_name }}" required>
+            <label class="form-label" for="firstname">Імʼя</label>
+        </div>
+
+        <div class="form-outline col-lg-6 mb-3">
+            <input class="form-control" type="text" id="username" name="last_name" value="{{ user.last_name }}" required>
+            <label class="form-label" for="lastname">Прізвище</label>
+        </div>
+
+        <div class="form-outline col-lg-6 mb-3">
+            <input class="form-control" type="email" id="email" name="email" value="{{ user.email }}" required>
+            <label class="form-label" for="email">Email</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary me-3">Зберегти зміни</button>
+        <a class="btn btn-secondary" href="{% url 'profile' request.user.username %}">Назад до профілю</a>
+    </form>
+
+{#    <a class="btn btn-secondary" href="{% url 'profile' request.user.pk %}">Назад до профілю</a>#}
+{% endblock %}
